@@ -1,17 +1,8 @@
 import pygame as pg
 import math
-import googleapiclient.discovery
-import requests
-from io import BytesIO
-api_service_name = "youtube"
-api_version = "v3"
-key = "AIzaSyAT_m-yXQldPrMAHIjdgy-xOmgttcpXChw"
 
 def load_image(name, colorkey=None, scale=1):
     pg.init()
-    if("http" in name):
-        response = requests.get(name)
-        name = BytesIO(response.content)
     image = pg.image.load(name)
 
     size = image.get_size()
@@ -118,23 +109,23 @@ def get_character_dims(font, surface, margins=0, lines=10):
     return ((max_width//word_width) - 1, word_height*lines)
 
 
-def get_videos(query):
-    res = []
-    youtube = googleapiclient.discovery.build(
-    api_service_name, api_version, developerKey = key)
-    request = youtube.search().list(
-        part="id,snippet",
-        type='video',
-        q=query,
-        videoDuration='short',
-        videoDefinition='high',
-        maxResults=3
-)
-    response = request.execute()
-    for item in response['items']:
-        title = item['snippet']['title']
-        img = item['snippet']['thumbnails']['default']['url']
-        link = "https://www.youtube.com/watch?v={}".format(item['id']['videoId'])
-        temp = {"title": title, "img": img, "url": link}
-        res.append(temp)
-    return res
+# def get_videos(query):
+#     res = []
+#     youtube = googleapiclient.discovery.build(
+#     api_service_name, api_version, developerKey = key)
+#     request = youtube.search().list(
+#         part="id,snippet",
+#         type='video',
+#         q=query,
+#         videoDuration='short',
+#         videoDefinition='high',
+#         maxResults=3
+# )
+#     response = request.execute()
+#     for item in response['items']:
+#         title = item['snippet']['title']
+#         img = item['snippet']['thumbnails']['default']['url']
+#         link = "https://www.youtube.com/watch?v={}".format(item['id']['videoId'])
+#         temp = {"title": title, "img": img, "url": link}
+#         res.append(temp)
+#     return res
