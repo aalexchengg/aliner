@@ -87,17 +87,17 @@ def highlight_rect(screen, rect):
 
 def text_to_list(filepath, character_width=None):
     res = []
-    temp = ""
     with open(filepath) as file:
         for line in file:
+            temp = ""
             for word in line.split():
                 if(character_width != None and len(temp + " " + word) > character_width):
                     res.append(temp)
                     temp = word
                 else:
                     temp = temp + " " + word
-    if(temp != ""):
-        res.append(temp)
+            if(temp != ""):
+                res.append(temp)
     return res
 
 def get_character_dims(font, surface, margins=0, lines=10):

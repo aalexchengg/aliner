@@ -40,7 +40,7 @@ TEXT = dict()
 TEXT["windowbot"] = ["Read letter?\n[Enter] --> Yes", "[Esc] --> Back\n[Up/Down]--> Read\n[Scroll] --> Read"]
 TEXT["desk"] = ["Go online?\n[Enter] --> Yes", "[Esc] --> Back"]
 TEXT["dresser"] = "Check phone?\n[Enter] --> Yes"
-
+TEXT["bedroom"] = "[W] --> Up\n[A] --> Left\n[S] --> Down\n[D] -->Right"
 MAXLINES=15
 MARGIN = 10
 LINEHEIGHT = 24

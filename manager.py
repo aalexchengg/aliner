@@ -1,6 +1,6 @@
 import pygame as pg
 from utils import tileBackground
-from info import MAXLINES, MARGIN, LINEHEIGHT, FIRSTY
+from info import MAXLINES, MARGIN, FIRSTY, TEXT
 import webbrowser
 
 class SceneManager():
@@ -32,7 +32,7 @@ class SceneManager():
         self.currscene = func(screen=self.screen, background=self.background, events = events, keys_pressed = keys_pressed,**variables)
         return
 
-def bedroom(screen, background, events, keys_pressed, allsprites, character, furniture, bg, activated, carpet_tile):
+def bedroom(screen, background, events, keys_pressed, allsprites, character, furniture, bg, activated, carpet_tile, font):
     for event in events:
         if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
             pg.quit()
@@ -61,6 +61,10 @@ def bedroom(screen, background, events, keys_pressed, allsprites, character, fur
     furniture.draw(screen)
     activated.type(screen)
     allsprites.draw(screen)
+    if not activated:
+        lines = TEXT['bedroom'].splitlines()
+        for i, l in enumerate(lines):
+            screen.blit(font.render(l, True, (0,0,0)), (activated.textbox.x, activated.textbox.y + 12*i))
     pg.display.flip()
     return "bedroom"
 
@@ -97,7 +101,7 @@ def letter(screen, background, events, keys_pressed, allsprites, furniture, bg, 
     activated.type(screen)
     allsprites.draw(screen)
     screen.blit(shade, (0,0))
-    screen.blit(paper, (MARGIN/2,FIRSTY + MARGIN/2))
+    screen.blit(paper, (MARGIN/2,FIRSTY - MARGIN/2))
     for i in range(start.start, end):
         screen.blit(font.render(text[i], True, (0,0,0)), (MARGIN, FIRSTY + 24*(i - start.start)))
     pg.display.flip()
